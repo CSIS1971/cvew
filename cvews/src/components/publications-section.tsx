@@ -467,7 +467,6 @@ export function PublicationsSection() {
             flex: 1,
             minHeight: 0,
             overflow: "hidden",
-            paddingLeft: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
           }}
         >
           <div
@@ -479,7 +478,9 @@ export function PublicationsSection() {
               height: "100%",
               alignItems: "stretch",
               willChange: "transform",
+              paddingLeft: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
               paddingRight: 24,
+              boxSizing: "border-box",
             }}
           >
             {loading && statusBox("Loading publications…")}
