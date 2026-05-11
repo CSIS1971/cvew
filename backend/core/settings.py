@@ -30,9 +30,6 @@ DEBUG = config('DEBUG', default=True, cast=bool)
 
 ALLOWED_HOSTS = ['hub.csis.or.id', 'cvew.csis.or.id', 'localhost', '127.0.0.1']
 
-# Deploy root (cPanel docroot for hub.csis.or.id)
-DEPLOY_ROOT = '/home/csis3web/hub.csis.or.id'
-
 
 # Application definition
 DEFAULT_APPS = [
@@ -162,21 +159,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-# Prod: collected static under deploy root so web server serves directly.
-# Dev: fall back to BASE_DIR/staticfiles.
-STATIC_ROOT = (
-    os.path.join(DEPLOY_ROOT, 'static')
-    if os.path.isdir(DEPLOY_ROOT)
-    else os.path.join(BASE_DIR, 'staticfiles')
-)
+STATIC_ROOT = '/home/csis3web/hub.csis.or.id/static'
+STATICFILES_DIRS = ['/home/csis3web/hub.csis.or.id/staticfiles']
 
 # Media files (User uploaded files)
 MEDIA_URL = '/media/'
-MEDIA_ROOT = (
-    os.path.join(DEPLOY_ROOT, 'media')
-    if os.path.isdir(DEPLOY_ROOT)
-    else os.path.join(BASE_DIR, 'media')
-)
+MEDIA_ROOT = '/home/csis3web/hub.csis.or.id/media'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field

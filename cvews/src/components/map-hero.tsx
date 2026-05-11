@@ -1,4 +1,5 @@
 import { Map, MapMarker, MarkerContent, MarkerPopup } from "@/components/ui/map"
+import { useIsMobile } from "@/hooks/use-is-mobile"
 
 // Severity colors from DESIGN.md
 const SEVERITY_COLOR: Record<string, string> = {
@@ -48,8 +49,9 @@ function SeverityDot({ severity, count }: { severity: string; count: number }) {
 }
 
 export function MapHero({ onOpenDrawer }: MapHeroProps) {
+  const isMobile = useIsMobile()
   return (
-    <section className="relative w-full" style={{ height: "82vh", minHeight: 540 }}>
+    <section className="relative w-full" style={{ height: isMobile ? "70vh" : "82vh", minHeight: isMobile ? 420 : 540 }}>
       {/* Fixed map background — stays in viewport while hero scrolls past */}
       <div
         style={{
@@ -143,10 +145,10 @@ export function MapHero({ onOpenDrawer }: MapHeroProps) {
         <h1
           style={{
             fontFamily: "PT Serif, Georgia, serif",
-            fontSize: "clamp(48px, 8vw, 84px)",
+            fontSize: isMobile ? "clamp(32px, 9vw, 44px)" : "clamp(48px, 8vw, 84px)",
             fontWeight: 700,
             color: "#faf9f5",
-            letterSpacing: "-1.5px",
+            letterSpacing: isMobile ? "-0.8px" : "-1.5px",
             lineHeight: 1.05,
             margin: "0 0 16px",
             textAlign: "center",
@@ -158,7 +160,7 @@ export function MapHero({ onOpenDrawer }: MapHeroProps) {
         <p
           style={{
             fontFamily: "Poppins, Inter, sans-serif",
-            fontSize: 17,
+            fontSize: isMobile ? 14 : 17,
             fontWeight: 400,
             color: "rgba(250,249,245,0.72)",
             lineHeight: 1.55,
@@ -171,8 +173,8 @@ export function MapHero({ onOpenDrawer }: MapHeroProps) {
         </p>
       </div>
 
-      {/* Latest Reports button */}
-      <button
+      {/* Latest Reports button — hidden on mobile (mobile uses nav hamburger menu) */}
+      {!isMobile && <button
         onClick={onOpenDrawer}
         style={{
           position: "absolute",
@@ -214,7 +216,7 @@ export function MapHero({ onOpenDrawer }: MapHeroProps) {
         >
           8
         </span>
-      </button>
+      </button>}
 
       <style>{`
         @keyframes pulse-marker {

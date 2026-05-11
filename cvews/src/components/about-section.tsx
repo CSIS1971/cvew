@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { useIsMobile } from "@/hooks/use-is-mobile"
 
 const T = {
   canvas: "#faf9f5",
@@ -97,19 +98,20 @@ const PARTNERS = [
 
 export function AboutSection() {
   const [openId, setOpenId] = useState<string>("contact")
+  const isMobile = useIsMobile()
 
   return (
     <section
       id="about-section"
       style={{
         background: T.canvas,
-        padding: "96px 24px",
+        padding: isMobile ? "56px 16px" : "96px 24px",
         borderTop: `1px solid ${T.hairline}`,
         scrollMarginTop: 80,
       }}
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
-        <div style={{ marginBottom: 48 }}>
+        <div style={{ marginBottom: isMobile ? 28 : 48 }}>
           <span
             style={{
               fontFamily: "Poppins, Inter, sans-serif",
@@ -125,12 +127,12 @@ export function AboutSection() {
           <h2
             style={{
               fontFamily: "PT Serif, Georgia, serif",
-              fontSize: 48,
+              fontSize: isMobile ? 32 : 48,
               fontWeight: 700,
               margin: "8px 0 10px",
               color: T.ink,
               lineHeight: 1.1,
-              letterSpacing: "-1px",
+              letterSpacing: isMobile ? "-0.5px" : "-1px",
             }}
           >
             About the CVEW Dataset
@@ -138,7 +140,7 @@ export function AboutSection() {
           <p
             style={{
               fontFamily: "Poppins, Inter, sans-serif",
-              fontSize: 16,
+              fontSize: isMobile ? 14 : 16,
               color: T.muted,
               margin: 0,
               lineHeight: 1.55,
@@ -152,8 +154,8 @@ export function AboutSection() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1fr 1fr",
-            gap: 64,
+            gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+            gap: isMobile ? 32 : 64,
             alignItems: "start",
           }}
         >
@@ -285,8 +287,8 @@ export function AboutSection() {
               <div
                 style={{
                   display: "grid",
-                  gridTemplateColumns: "repeat(3, 1fr)",
-                  gap: 16,
+                  gridTemplateColumns: isMobile ? "repeat(2, 1fr)" : "repeat(3, 1fr)",
+                  gap: 12,
                   alignItems: "center",
                 }}
               >

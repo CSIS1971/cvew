@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { fetchJson, type PaginatedPublications, type Publication } from "@/lib/api"
+import { useIsMobile } from "@/hooks/use-is-mobile"
 
 const T = {
   "surface-dark": "#005357",
@@ -19,6 +20,7 @@ interface FooterLink {
 export function SiteFooter() {
   const currentYear = new Date().getFullYear()
   const [pubs, setPubs] = useState<Publication[]>([])
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     fetchJson<PaginatedPublications>("/api/publications/?limit=4")
@@ -99,15 +101,15 @@ export function SiteFooter() {
   }
 
   return (
-    <footer style={{ background: T["surface-dark"], padding: "64px 32px 32px" }}>
+    <footer style={{ background: T["surface-dark"], padding: isMobile ? "48px 16px 24px" : "64px 32px 32px" }}>
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {/* Top grid */}
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "2fr repeat(3, 1fr)",
-            gap: 48,
-            marginBottom: 48,
+            gridTemplateColumns: isMobile ? "1fr" : "2fr repeat(3, 1fr)",
+            gap: isMobile ? 32 : 48,
+            marginBottom: isMobile ? 32 : 48,
             alignItems: "start",
           }}
         >

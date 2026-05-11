@@ -5,6 +5,7 @@ import {
   type PaginatedPublications,
   type Publication,
 } from "@/lib/api"
+import { useIsMobile } from "@/hooks/use-is-mobile"
 
 const T = {
   canvas: "#faf9f5",
@@ -37,6 +38,7 @@ export function PublicationsSection() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
   const scrollRef = useRef<HTMLDivElement>(null)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     fetchJson<PaginatedPublications>("/api/publications/?limit=20")
@@ -69,7 +71,7 @@ export function PublicationsSection() {
       id="publications-section"
       style={{
         background: T.primary,
-        padding: "96px 0",
+        padding: isMobile ? "56px 0" : "96px 0",
         scrollMarginTop: 80,
         overflow: "hidden",
       }}
@@ -88,9 +90,9 @@ export function PublicationsSection() {
         }
       `}</style>
 
-      <div style={{ maxWidth: 1200, margin: "0 auto", padding: "0 24px" }}>
+      <div style={{ maxWidth: 1200, margin: "0 auto", padding: isMobile ? "0 16px" : "0 24px" }}>
         {/* Header */}
-        <div style={{ marginBottom: 48 }}>
+        <div style={{ marginBottom: isMobile ? 28 : 48 }}>
           <span
             style={{
               fontFamily: "Poppins, Inter, sans-serif",
@@ -106,12 +108,12 @@ export function PublicationsSection() {
           <h2
             style={{
               fontFamily: "PT Serif, Georgia, serif",
-              fontSize: 48,
+              fontSize: isMobile ? 32 : 48,
               fontWeight: 700,
               margin: "8px 0 10px",
               color: T["on-primary"],
               lineHeight: 1.1,
-              letterSpacing: "-1px",
+              letterSpacing: isMobile ? "-0.5px" : "-1px",
             }}
           >
             Research & Analysis
@@ -119,7 +121,7 @@ export function PublicationsSection() {
           <p
             style={{
               fontFamily: "Poppins, Inter, sans-serif",
-              fontSize: 16,
+              fontSize: isMobile ? 14 : 16,
               color: "rgba(250,249,245,0.72)",
               margin: 0,
               fontWeight: 400,
@@ -132,8 +134,8 @@ export function PublicationsSection() {
         </div>
       </div>
 
-      {/* Scroll arrows — bleed-aligned with header */}
-      <div
+      {/* Scroll arrows — bleed-aligned with header. Hidden on mobile (touch scroll). */}
+      {!isMobile && <div
         style={{
           maxWidth: 1200,
           margin: "0 auto",
@@ -162,7 +164,7 @@ export function PublicationsSection() {
         >
           →
         </button>
-      </div>
+      </div>}
 
       {/* Scroll container — left aligns with header, bleeds past right viewport edge */}
       <div
@@ -176,12 +178,12 @@ export function PublicationsSection() {
           overflowY: "hidden",
           scrollSnapType: "x mandatory",
           scrollSnapStop: "always",
-          scrollPaddingLeft: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
+          scrollPaddingLeft: isMobile ? 16 : "max(24px, calc((100vw - 1200px) / 2 + 24px))",
           scrollbarWidth: "thin",
           scrollbarColor: "rgba(250,249,245,0.35) transparent",
           paddingBottom: 16,
-          paddingLeft: "max(24px, calc((100vw - 1200px) / 2 + 24px))",
-          paddingRight: 24,
+          paddingLeft: isMobile ? 16 : "max(24px, calc((100vw - 1200px) / 2 + 24px))",
+          paddingRight: isMobile ? 16 : 24,
         }}
       >
           {loading && (

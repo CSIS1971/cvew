@@ -20,6 +20,7 @@ import {
   type ViolenceFormsResponse,
   type DashboardOverview,
 } from "@/lib/api"
+import { useIsMobile } from "@/hooks/use-is-mobile"
 
 const T = {
   canvas: "#faf9f5",
@@ -463,6 +464,7 @@ function CasualtiesDonut({ data }: { data: DashboardOverview }) {
 export function IncidentChart() {
   const [dashboard, setDashboard] = useState<DashboardOverview | null>(null)
   const [dashError, setDashError] = useState<string | null>(null)
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     fetchJson<DashboardOverview>("/api/dashboard/overview/")
@@ -474,7 +476,7 @@ export function IncidentChart() {
     <section
       id="dashboard-section"
       style={{
-        padding: "96px 24px",
+        padding: isMobile ? "56px 16px" : "96px 24px",
         background: T.canvas,
         borderTop: `1px solid ${T.hairline}`,
         scrollMarginTop: 80,
@@ -482,7 +484,7 @@ export function IncidentChart() {
     >
       <div style={{ maxWidth: 1200, margin: "0 auto" }}>
         {/* Section header */}
-        <div style={{ marginBottom: 48 }}>
+        <div style={{ marginBottom: isMobile ? 32 : 48 }}>
           <span
             style={{
               fontFamily: "Poppins, Inter, sans-serif",
@@ -498,12 +500,12 @@ export function IncidentChart() {
           <h2
             style={{
               fontFamily: "PT Serif, Georgia, serif",
-              fontSize: 48,
+              fontSize: isMobile ? 32 : 48,
               fontWeight: 700,
               margin: "8px 0 10px",
               color: T.ink,
               lineHeight: 1.1,
-              letterSpacing: "-1px",
+              letterSpacing: isMobile ? "-0.5px" : "-1px",
             }}
           >
             Incident Trends
@@ -511,7 +513,7 @@ export function IncidentChart() {
           <p
             style={{
               fontFamily: "Poppins, Inter, sans-serif",
-              fontSize: 16,
+              fontSize: isMobile ? 14 : 16,
               color: T.muted,
               margin: 0,
               fontWeight: 400,
@@ -527,8 +529,8 @@ export function IncidentChart() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "repeat(auto-fit, minmax(480px, 1fr))",
-            gap: 24,
+            gridTemplateColumns: isMobile ? "1fr" : "repeat(auto-fit, minmax(480px, 1fr))",
+            gap: isMobile ? 16 : 24,
           }}
         >
           <MonthlyTrendsChart />
@@ -539,9 +541,9 @@ export function IncidentChart() {
         <div
           style={{
             display: "grid",
-            gridTemplateColumns: "1.4fr 1fr",
-            gap: 24,
-            marginTop: 24,
+            gridTemplateColumns: isMobile ? "1fr" : "1.4fr 1fr",
+            gap: isMobile ? 16 : 24,
+            marginTop: isMobile ? 16 : 24,
           }}
         >
           {dashboard ? (
