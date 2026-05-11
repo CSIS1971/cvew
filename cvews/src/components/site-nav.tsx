@@ -161,139 +161,220 @@ export function SiteNav({ onOpenDrawer }: SiteNavProps) {
           </div>
         )}
 
-        {/* MOBILE hamburger */}
+        {/* MOBILE hamburger / close button */}
         {isMobile && (
           <button
             onClick={() => setMenuOpen((o) => !o)}
-            aria-label="Toggle menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
             aria-expanded={menuOpen}
             style={{
-              background: "transparent",
+              background: menuOpen ? T["surface-card"] : "transparent",
               border: `1px solid ${T.hairline}`,
-              borderRadius: 8,
-              width: 40,
-              height: 40,
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 4,
+              borderRadius: 10,
+              width: 44,
+              height: 44,
+              position: "relative",
               cursor: "pointer",
               padding: 0,
+              flexShrink: 0,
+              transition: "background 0.2s",
+              WebkitTapHighlightColor: "transparent",
             }}
           >
             <span
               style={{
-                display: "block",
-                width: 18,
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                width: 20,
                 height: 2,
                 background: T.ink,
                 borderRadius: 2,
-                transition: "transform 0.2s, opacity 0.2s",
-                transform: menuOpen ? "translateY(6px) rotate(45deg)" : "none",
+                transition: "transform 0.25s cubic-bezier(0.4,0,0.2,1)",
+                transform: menuOpen
+                  ? "translate(-50%, -50%) rotate(45deg)"
+                  : "translate(-50%, calc(-50% - 5px))",
               }}
             />
             <span
               style={{
-                display: "block",
-                width: 18,
+                position: "absolute",
+                left: "50%",
+                top: "50%",
+                width: 20,
                 height: 2,
                 background: T.ink,
                 borderRadius: 2,
-                transition: "opacity 0.2s",
-                opacity: menuOpen ? 0 : 1,
-              }}
-            />
-            <span
-              style={{
-                display: "block",
-                width: 18,
-                height: 2,
-                background: T.ink,
-                borderRadius: 2,
-                transition: "transform 0.2s",
-                transform: menuOpen ? "translateY(-6px) rotate(-45deg)" : "none",
+                transition: "transform 0.25s cubic-bezier(0.4,0,0.2,1)",
+                transform: menuOpen
+                  ? "translate(-50%, -50%) rotate(-45deg)"
+                  : "translate(-50%, calc(-50% + 5px))",
               }}
             />
           </button>
         )}
       </div>
 
-      {/* MOBILE slide-down menu */}
+      {/* MOBILE full-screen sheet */}
       {isMobile && (
-        <div
-          style={{
-            position: "fixed",
-            top: 64,
-            left: 0,
-            right: 0,
-            bottom: 0,
-            background: T.canvas,
-            zIndex: 29,
-            transform: menuOpen ? "translateY(0)" : "translateY(-100%)",
-            transition: "transform 0.25s cubic-bezier(0.4,0,0.2,1)",
-            display: "flex",
-            flexDirection: "column",
-            padding: 24,
-            gap: 4,
-          }}
-        >
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={() => setMenuOpen(false)}
-              style={{
-                color: T.ink,
-                fontFamily: "Poppins, Inter, sans-serif",
-                fontSize: 18,
-                fontWeight: 500,
-                padding: "16px 8px",
-                borderBottom: `1px solid ${T.hairline}`,
-                textDecoration: "none",
-              }}
-            >
-              {link.label}
-            </a>
-          ))}
-
-          <button
-            onClick={() => {
-              setMenuOpen(false)
-              onOpenDrawer()
-            }}
+        <>
+          {/* Backdrop */}
+          <div
+            onClick={() => setMenuOpen(false)}
+            aria-hidden
             style={{
-              marginTop: 24,
-              background: T.primary,
-              border: "none",
-              color: T["on-primary"],
-              fontFamily: "Poppins, Inter, sans-serif",
-              fontSize: 15,
-              fontWeight: 500,
-              padding: "14px 16px",
-              borderRadius: 10,
-              cursor: "pointer",
+              position: "fixed",
+              top: 64,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: "rgba(20,20,19,0.4)",
+              zIndex: 28,
+              opacity: menuOpen ? 1 : 0,
+              pointerEvents: menuOpen ? "auto" : "none",
+              transition: "opacity 0.25s ease",
+            }}
+          />
+
+          {/* Panel */}
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site menu"
+            style={{
+              position: "fixed",
+              top: 64,
+              left: 0,
+              right: 0,
+              bottom: 0,
+              background: T.canvas,
+              zIndex: 29,
+              transform: menuOpen ? "translateY(0)" : "translateY(-100%)",
+              transition: "transform 0.3s cubic-bezier(0.16,1,0.3,1)",
               display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 8,
-              height: 48,
+              flexDirection: "column",
+              boxShadow: "0 12px 32px rgba(20,20,19,0.08)",
             }}
           >
-            <span
+            {/* Section label */}
+            <div
               style={{
-                width: 6,
-                height: 6,
-                borderRadius: "50%",
-                background: T["on-primary"],
-                opacity: 0.8,
-                animation: "pulse 1.5s ease-in-out infinite",
-                flexShrink: 0,
+                padding: "20px 20px 8px",
+                fontFamily: "Poppins, Inter, sans-serif",
+                fontSize: 11,
+                fontWeight: 600,
+                letterSpacing: "1.5px",
+                textTransform: "uppercase",
+                color: T.muted,
               }}
-            />
-            Latest Reports
-          </button>
-        </div>
+            >
+              Menu
+            </div>
+
+            {/* Links — large rows with chevron */}
+            <nav style={{ flex: 1, overflowY: "auto", padding: "0 8px" }}>
+              {navLinks.map((link, i) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  style={{
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    minHeight: 56,
+                    padding: "0 16px",
+                    margin: "2px 4px",
+                    borderRadius: 12,
+                    color: T.ink,
+                    fontFamily: "PT Serif, Georgia, serif",
+                    fontSize: 19,
+                    fontWeight: 500,
+                    textDecoration: "none",
+                    letterSpacing: "-0.2px",
+                    transition: "background 0.15s, transform 0.4s, opacity 0.4s",
+                    transitionDelay: menuOpen ? `${80 + i * 50}ms` : "0ms",
+                    opacity: menuOpen ? 1 : 0,
+                    transform: menuOpen ? "translateY(0)" : "translateY(-8px)",
+                    WebkitTapHighlightColor: "transparent",
+                  }}
+                  onTouchStart={(e) => (e.currentTarget.style.background = T["surface-card"])}
+                  onTouchEnd={(e) => (e.currentTarget.style.background = "transparent")}
+                >
+                  <span>{link.label}</span>
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden>
+                    <path d="M9 6l6 6-6 6" stroke={T.muted} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                </a>
+              ))}
+            </nav>
+
+            {/* CTA — anchored bottom with safe-area */}
+            <div
+              style={{
+                padding: "12px 20px calc(20px + env(safe-area-inset-bottom))",
+                borderTop: `1px solid ${T.hairline}`,
+                background: T.canvas,
+                opacity: menuOpen ? 1 : 0,
+                transform: menuOpen ? "translateY(0)" : "translateY(8px)",
+                transition: "opacity 0.4s, transform 0.4s",
+                transitionDelay: menuOpen ? "240ms" : "0ms",
+              }}
+            >
+              <button
+                onClick={() => {
+                  setMenuOpen(false)
+                  onOpenDrawer()
+                }}
+                style={{
+                  width: "100%",
+                  background: T.primary,
+                  border: "none",
+                  color: T["on-primary"],
+                  fontFamily: "Poppins, Inter, sans-serif",
+                  fontSize: 15,
+                  fontWeight: 600,
+                  padding: "0 20px",
+                  borderRadius: 12,
+                  cursor: "pointer",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  gap: 10,
+                  height: 52,
+                  WebkitTapHighlightColor: "transparent",
+                }}
+              >
+                <span
+                  style={{
+                    width: 7,
+                    height: 7,
+                    borderRadius: "50%",
+                    background: T["on-primary"],
+                    opacity: 0.85,
+                    animation: "pulse 1.5s ease-in-out infinite",
+                    flexShrink: 0,
+                  }}
+                />
+                Latest Reports
+                <span
+                  style={{
+                    marginLeft: 4,
+                    background: "rgba(255,255,255,0.18)",
+                    color: T["on-primary"],
+                    fontSize: 11,
+                    fontWeight: 700,
+                    padding: "2px 8px",
+                    borderRadius: 9999,
+                    lineHeight: 1.4,
+                  }}
+                >
+                  8 new
+                </span>
+              </button>
+            </div>
+          </div>
+        </>
       )}
     </nav>
   )
