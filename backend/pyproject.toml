@@ -1,0 +1,30 @@
+[project]
+name = "cvew-backend"
+version = "0.1.0"
+description = "Collective Violence Early Warning Dataset — Django backend (CSIS Indonesia)"
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+dependencies = [
+    "asgiref==3.8.1",
+    "diff-match-patch==20230430",
+    "Django==4.2",
+    "django-ckeditor-5==0.2.13",
+    "django-cors-headers>=4.9.0",
+    "django-import-export==4.1.1",
+    "djangorestframework==3.15.2",
+    "et-xmlfile==1.1.0",
+    "gunicorn==23.0.0",
+    "numpy==2.2.5",
+    "openpyxl==3.1.5",
+    "packaging==24.1",
+    "pandas==2.2.3",
+    "pillow==10.4.0",
+    "PyPDF2==3.0.1",
+    "python-dateutil==2.9.0.post0",
+    "python-decouple==3.8",
+    "pytz==2025.2",
+    "six==1.17.0",
+    "sqlparse==0.5.1",
+    "tablib==3.5.0",
+    "tzdata==2025.2",
+]

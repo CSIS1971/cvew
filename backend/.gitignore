@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+venv/
+
+# Env / secrets
+.env
+.env.local
+
+# Django
+staticfiles/
+*.sqlite3-journal
+
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# Build artifacts
+hub.csis.or.id.zip
+*Yearly Dataset*

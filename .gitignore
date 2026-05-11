@@ -1,0 +1,43 @@
+# OS / editors
+.DS_Store
+.idea/
+.vscode/
+*.log
+
+# Datasets
+*Yearly Dataset*
+
+# Old project snapshot
+/apps/
+
+# === backend (Django) ===
+backend/__pycache__/
+backend/**/__pycache__/
+backend/*.py[oc]
+backend/build/
+backend/dist/
+backend/wheels/
+backend/*.egg-info
+backend/.venv/
+backend/venv/
+backend/.env
+backend/.env.local
+backend/staticfiles/
+backend/*.sqlite3-journal
+backend/hub.csis.or.id.zip
+
+# === cvews (Vite/React) ===
+cvews/node_modules/
+cvews/dist/
+cvews/dist-ssr/
+cvews/*.local
+cvews/count.txt
+cvews/.env
+cvews/.env.local
+cvews/.nitro/
+cvews/.tanstack/
+cvews/.wrangler/
+cvews/.output/
+cvews/.vinxi/
+cvews/__unconfig*
+cvews/todos.json
