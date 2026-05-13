@@ -36,13 +36,6 @@ export function SiteFooter() {
     { label: "CSIS Website", href: "https://csis.or.id", external: true },
   ]
 
-  const contactLinks: FooterLink[] = [
-    { label: "ra.ir@csis.or.id", href: "mailto:ra.ir@csis.or.id" },
-    { label: "violence.csis.or.id", href: "https://violence.csis.or.id", external: true },
-    { label: "AP R2P", href: "https://r2pasiapacific.org/", external: true },
-    { label: "APPAP — UQ", href: "https://appap.group.uq.edu.au/", external: true },
-  ]
-
   const partners = [
     { name: "CSIS Indonesia", url: "https://csis.or.id", logo: "/partner-csis.png" },
     { name: "APPAP — University of Queensland", url: "https://appap.group.uq.edu.au/", logo: "/partner-appap.png" },
@@ -178,7 +171,52 @@ export function SiteFooter() {
           {/* Contact */}
           <div>
             <h4 style={headStyle}>Contact</h4>
-            {renderLinks(contactLinks)}
+            <address
+              style={{
+                fontFamily: "Poppins, Inter, sans-serif",
+                fontSize: 14,
+                fontWeight: 400,
+                color: T["on-dark-soft"],
+                fontStyle: "normal",
+                lineHeight: 1.55,
+                margin: "0 0 10px",
+              }}
+            >
+              Pakarti Centre Building,<br />
+              Jl. Tanah Abang 3 No. 23-27,<br />
+              Jakarta 10160, Indonesia
+            </address>
+            <ul
+              style={{
+                listStyle: "none",
+                padding: 0,
+                margin: 0,
+                display: "flex",
+                flexDirection: "column",
+                gap: 6,
+              }}
+            >
+              <li>
+                <a
+                  href="tel:+62213865532"
+                  style={linkStyle}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = T["on-dark"])}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = T["on-dark-soft"])}
+                >
+                  +62 21 386 5532
+                </a>
+              </li>
+              <li>
+                <a
+                  href="mailto:csis@csis.or.id"
+                  style={linkStyle}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = T["on-dark"])}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = T["on-dark-soft"])}
+                >
+                  csis@csis.or.id
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
 
@@ -269,18 +307,6 @@ export function SiteFooter() {
             }}
           >
             © {currentYear} CSIS Indonesia. CVEW Dataset for research and atrocities prevention purposes.
-          </p>
-          <p
-            style={{
-              fontFamily: "Poppins, Inter, sans-serif",
-              fontSize: 13,
-              color: T["on-dark-soft"],
-              margin: 0,
-              fontWeight: 400,
-              fontStyle: "italic",
-            }}
-          >
-            Suggested citation: Lina Alexandra, Farhan Julianto. "CVEW Dataset," CSIS Indonesia, 2023.
           </p>
         </div>
       </div>
