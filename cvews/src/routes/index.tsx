@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useRef } from "react"
 import { createFileRoute } from "@tanstack/react-router"
 import { SiteNav } from "@/components/site-nav"
 import { MapHero } from "@/components/map-hero"
-import { ArticlesDrawer } from "@/components/articles-drawer"
 import { IncidentChart } from "@/components/incident-chart"
 import { PublicationsSection } from "@/components/publications-section"
 import { AboutSection } from "@/components/about-section"
@@ -53,14 +52,12 @@ function Reveal({
 }
 
 function LandingPage() {
-  const [drawerOpen, setDrawerOpen] = useState(false)
-
   return (
     <div style={{ minHeight: "100vh", display: "flex", flexDirection: "column" }}>
-      <SiteNav onOpenDrawer={() => setDrawerOpen(true)} />
+      <SiteNav />
 
       <div style={{ paddingTop: 64, flex: 1 }}>
-        <MapHero onOpenDrawer={() => setDrawerOpen(true)} />
+        <MapHero />
 
         {/* Sections below hero scroll OVER the fixed map */}
         <div style={{ position: "relative", zIndex: 1 }}>
@@ -83,8 +80,6 @@ function LandingPage() {
           <SiteFooter />
         </Reveal>
       </div>
-
-      <ArticlesDrawer open={drawerOpen} onClose={() => setDrawerOpen(false)} />
     </div>
   )
 }

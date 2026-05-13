@@ -25,10 +25,6 @@ const INCIDENTS = [
   { id: 12, lng: 140.38, lat: -8.56, severity: "high", label: "Merauke, Papua", count: 16, category: "Armed Conflict" },
 ]
 
-interface MapHeroProps {
-  onOpenDrawer: () => void
-}
-
 function SeverityDot({ severity, count }: { severity: string; count: number }) {
   const color = SEVERITY_COLOR[severity]
   const size = Math.max(14, Math.min(42, count * 1.2))
@@ -48,7 +44,7 @@ function SeverityDot({ severity, count }: { severity: string; count: number }) {
   )
 }
 
-export function MapHero({ onOpenDrawer }: MapHeroProps) {
+export function MapHero() {
   const isMobile = useIsMobile()
   return (
     <section className="relative w-full" style={{ height: isMobile ? "70vh" : "82vh", minHeight: isMobile ? 420 : 540 }}>
@@ -172,51 +168,6 @@ export function MapHero({ onOpenDrawer }: MapHeroProps) {
           The Collective Violence Early Warning (CVEW) Dataset — a comprehensive monitoring tool and early warning system for collective violence and conflict in Indonesia.
         </p>
       </div>
-
-      {/* Latest Reports button — hidden on mobile (mobile uses nav hamburger menu) */}
-      {!isMobile && <button
-        onClick={onOpenDrawer}
-        style={{
-          position: "absolute",
-          top: 16,
-          right: 16,
-          zIndex: 3,
-          background: "#252320",
-          border: "1px solid rgba(250,249,245,0.12)",
-          color: "#faf9f5",
-          fontFamily: "Poppins, Inter, sans-serif",
-          fontSize: 14,
-          fontWeight: 500,
-          padding: "8px 16px",
-          borderRadius: 8,
-          cursor: "pointer",
-          display: "flex",
-          alignItems: "center",
-          gap: 8,
-          height: 40,
-          transition: "background 0.15s",
-        }}
-        onMouseEnter={(e) => (e.currentTarget.style.background = "#2e2c28")}
-        onMouseLeave={(e) => (e.currentTarget.style.background = "#252320")}
-      >
-        Latest Reports
-        <span
-          style={{
-            width: 20,
-            height: 20,
-            borderRadius: "50%",
-            background: "#c64545",
-            color: "#fff",
-            fontSize: 11,
-            fontWeight: 700,
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-          }}
-        >
-          8
-        </span>
-      </button>}
 
       <style>{`
         @keyframes pulse-marker {

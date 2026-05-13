@@ -13,11 +13,7 @@ const T = {
   "surface-card": "#efe9de",
 }
 
-interface SiteNavProps {
-  onOpenDrawer: () => void
-}
-
-export function SiteNav({ onOpenDrawer }: SiteNavProps) {
+export function SiteNav() {
   const isMobile = useIsMobile()
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -115,49 +111,6 @@ export function SiteNav({ onOpenDrawer }: SiteNavProps) {
               </a>
             ))}
 
-            <div
-              style={{
-                width: 1,
-                height: 20,
-                background: T.hairline,
-                margin: "0 8px",
-              }}
-            />
-
-            <button
-              onClick={onOpenDrawer}
-              style={{
-                background: T.primary,
-                border: "none",
-                color: T["on-primary"],
-                fontFamily: "Poppins, Inter, sans-serif",
-                fontSize: 14,
-                fontWeight: 500,
-                padding: "8px 16px",
-                borderRadius: 8,
-                cursor: "pointer",
-                display: "flex",
-                alignItems: "center",
-                gap: 8,
-                height: 40,
-                transition: "background 0.15s",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = T["primary-active"])}
-              onMouseLeave={(e) => (e.currentTarget.style.background = T.primary)}
-            >
-              <span
-                style={{
-                  width: 6,
-                  height: 6,
-                  borderRadius: "50%",
-                  background: T["on-primary"],
-                  opacity: 0.8,
-                  animation: "pulse 1.5s ease-in-out infinite",
-                  flexShrink: 0,
-                }}
-              />
-              Latest Reports
-            </button>
           </div>
         )}
 
@@ -309,70 +262,6 @@ export function SiteNav({ onOpenDrawer }: SiteNavProps) {
               ))}
             </nav>
 
-            {/* CTA — anchored bottom with safe-area */}
-            <div
-              style={{
-                padding: "12px 20px calc(20px + env(safe-area-inset-bottom))",
-                borderTop: `1px solid ${T.hairline}`,
-                background: T.canvas,
-                opacity: menuOpen ? 1 : 0,
-                transform: menuOpen ? "translateY(0)" : "translateY(8px)",
-                transition: "opacity 0.4s, transform 0.4s",
-                transitionDelay: menuOpen ? "240ms" : "0ms",
-              }}
-            >
-              <button
-                onClick={() => {
-                  setMenuOpen(false)
-                  onOpenDrawer()
-                }}
-                style={{
-                  width: "100%",
-                  background: T.primary,
-                  border: "none",
-                  color: T["on-primary"],
-                  fontFamily: "Poppins, Inter, sans-serif",
-                  fontSize: 15,
-                  fontWeight: 600,
-                  padding: "0 20px",
-                  borderRadius: 12,
-                  cursor: "pointer",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  gap: 10,
-                  height: 52,
-                  WebkitTapHighlightColor: "transparent",
-                }}
-              >
-                <span
-                  style={{
-                    width: 7,
-                    height: 7,
-                    borderRadius: "50%",
-                    background: T["on-primary"],
-                    opacity: 0.85,
-                    animation: "pulse 1.5s ease-in-out infinite",
-                    flexShrink: 0,
-                  }}
-                />
-                Latest Reports
-                <span
-                  style={{
-                    marginLeft: 4,
-                    background: "rgba(255,255,255,0.18)",
-                    color: T["on-primary"],
-                    fontSize: 11,
-                    fontWeight: 700,
-                    padding: "2px 8px",
-                    borderRadius: 9999,
-                    lineHeight: 1.4,
-                  }}
-                >
-                  8 new
-                </span>
-              </button>
-            </div>
           </div>
         </>
       )}
