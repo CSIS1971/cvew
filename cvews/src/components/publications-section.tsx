@@ -36,7 +36,21 @@ const arrowBtnStyle: React.CSSProperties = {
 function Card({ pub }: { pub: Publication }) {
   const cover = mediaUrl(pub.cover)
   const file = mediaUrl(pub.file)
-  const detailUrl = `https://cvew.csis.or.id${pub.url}`
+  const coverStyle: React.CSSProperties = {
+    display: "block",
+    background: "rgba(250,249,245,0.08)",
+    aspectRatio: "3 / 4",
+    overflow: "hidden",
+  }
+  const coverImg = cover && (
+    <img
+      src={cover}
+      alt={pub.title}
+      loading="lazy"
+      style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
+    />
+  )
+
   return (
     <article
       style={{
@@ -58,26 +72,13 @@ function Card({ pub }: { pub: Publication }) {
         e.currentTarget.style.transform = "translateY(0)"
       }}
     >
-      <a
-        href={detailUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        style={{
-          display: "block",
-          background: "rgba(250,249,245,0.08)",
-          aspectRatio: "3 / 4",
-          overflow: "hidden",
-        }}
-      >
-        {cover && (
-          <img
-            src={cover}
-            alt={pub.title}
-            loading="lazy"
-            style={{ width: "100%", height: "100%", objectFit: "cover", display: "block" }}
-          />
-        )}
-      </a>
+      {file ? (
+        <a href={file} target="_blank" rel="noopener noreferrer" style={coverStyle}>
+          {coverImg}
+        </a>
+      ) : (
+        <div style={coverStyle}>{coverImg}</div>
+      )}
 
       <div style={{ padding: 18, display: "flex", flexDirection: "column", flex: 1 }}>
         <h3
@@ -91,14 +92,18 @@ function Card({ pub }: { pub: Publication }) {
             letterSpacing: "-0.1px",
           }}
         >
-          <a
-            href={detailUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{ color: "inherit", textDecoration: "none" }}
-          >
-            {pub.title}
-          </a>
+          {file ? (
+            <a
+              href={file}
+              target="_blank"
+              rel="noopener noreferrer"
+              style={{ color: "inherit", textDecoration: "none" }}
+            >
+              {pub.title}
+            </a>
+          ) : (
+            pub.title
+          )}
         </h3>
 
         <div
@@ -114,55 +119,30 @@ function Card({ pub }: { pub: Publication }) {
           {pub.author || "—"}
         </div>
 
-        <div style={{ display: "flex", gap: 8, marginTop: "auto" }}>
-          {file && (
-            <a
-              href={file}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                flex: 1,
-                background: T["on-primary"],
-                color: T.primary,
-                fontFamily: "Poppins, Inter, sans-serif",
-                fontSize: 12,
-                fontWeight: 600,
-                padding: "8px 12px",
-                borderRadius: 6,
-                textDecoration: "none",
-                textAlign: "center",
-                transition: "background 0.15s",
-              }}
-              onMouseEnter={(e) => (e.currentTarget.style.background = "#f5f0e8")}
-              onMouseLeave={(e) => (e.currentTarget.style.background = T["on-primary"])}
-            >
-              Download PDF
-            </a>
-          )}
+        {file && (
           <a
-            href={detailUrl}
+            href={file}
             target="_blank"
             rel="noopener noreferrer"
             style={{
-              background: "transparent",
-              border: "1px solid rgba(250,249,245,0.3)",
-              color: T["on-primary"],
+              background: T["on-primary"],
+              color: T.primary,
               fontFamily: "Poppins, Inter, sans-serif",
               fontSize: 12,
-              fontWeight: 500,
+              fontWeight: 600,
               padding: "8px 12px",
               borderRadius: 6,
               textDecoration: "none",
               textAlign: "center",
               transition: "background 0.15s",
-              flex: file ? "0 0 auto" : 1,
+              marginTop: "auto",
             }}
-            onMouseEnter={(e) => (e.currentTarget.style.background = "rgba(250,249,245,0.1)")}
-            onMouseLeave={(e) => (e.currentTarget.style.background = "transparent")}
+            onMouseEnter={(e) => (e.currentTarget.style.background = "#f5f0e8")}
+            onMouseLeave={(e) => (e.currentTarget.style.background = T["on-primary"])}
           >
-            Detail
+            Download PDF
           </a>
-        </div>
+        )}
       </div>
     </article>
   )
