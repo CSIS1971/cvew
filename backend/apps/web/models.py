@@ -295,6 +295,7 @@ class Publications(models.Model):
     class Meta:
         verbose_name = "Publications"
         verbose_name_plural = "Publications"
+        ordering = ['-date_publish', '-created_at']
 
     @property
     def get_url(self):
